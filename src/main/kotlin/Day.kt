@@ -9,7 +9,12 @@ abstract class Day(private val number: Int, private val title: String, private v
         get() = if (isTest) {
             when (currentPart) {
                 1 -> file("test1.txt")
-                2 -> file("test2.txt")
+                2 -> try {
+                    file("test2.txt")
+                } catch (e: Exception) {
+                    file("test1.txt")
+                }
+
                 else -> throw Exception("No test input for part $number")
             }
         } else {
@@ -20,11 +25,14 @@ abstract class Day(private val number: Int, private val title: String, private v
                 } catch (e: Exception) {
                     file("input.txt")
                 }
+
                 else -> throw Exception("No input for part $number")
             }
         }
     val inputLines
         get() = inputFile.readLines()
+    val inputText
+        get() = inputFile.readLines().joinToString("\n")
 
     private var isTest = false
     private var currentPart = 0
@@ -36,9 +44,13 @@ abstract class Day(private val number: Int, private val title: String, private v
     fun run() {
         println("--- Day $number: $title ---")
         println()
-        runTest(1, testOne, this::partOne)
+        timed {
+            runTest(1, testOne, this::partOne)
+        }
         println()
-        runTest(2, testTwo, this::partTwo)
+        timed {
+            runTest(2, testTwo, this::partTwo)
+        }
     }
 
     private fun runTest(part: Int, expected: Any, function: () -> Any) {
@@ -54,4 +66,11 @@ abstract class Day(private val number: Int, private val title: String, private v
             println("  Result: ${function.invoke()}")
         }
     }
+}
+
+internal fun timed(block: () -> Unit) {
+    val start = System.currentTimeMillis()
+    block.invoke()
+    val end = System.currentTimeMillis()
+    println("Time: ${end - start}ms")
 }
