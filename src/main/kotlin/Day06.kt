@@ -1,6 +1,3 @@
-package day06
-
-import Day
 import util.number
 import util.numbers
 

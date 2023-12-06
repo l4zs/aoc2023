@@ -1,6 +1,3 @@
-package day04
-
-import Day
 import kotlin.math.pow
 
 fun main() {

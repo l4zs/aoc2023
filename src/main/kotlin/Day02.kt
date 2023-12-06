@@ -1,7 +1,3 @@
-package day02
-
-import Day
-
 fun main() {
     Day02().run()
 }

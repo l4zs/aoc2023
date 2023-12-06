@@ -1,18 +1,19 @@
 import java.io.File
-import java.nio.file.Paths
+import java.nio.file.Path
 
 abstract class Day(private val number: Int, private val title: String, private val testOne: Any, private val testTwo: Any) {
 
-    private fun file(fileName: String): File = Paths.get(this.javaClass.getResource(fileName)!!.toURI()).toFile()
+    private val dayName = this.javaClass.simpleName
+    private fun file(fileName: String): File = Path.of(this.javaClass.getResource("${dayName}_$fileName")!!.toURI()).toFile()
 
     val inputFile: File
         get() = if (isTest) {
             when (currentPart) {
-                1 -> file("test1.txt")
+                1 -> file("test.txt")
                 2 -> try {
                     file("test2.txt")
                 } catch (e: Exception) {
-                    file("test1.txt")
+                    file("test.txt")
                 }
 
                 else -> throw Exception("No test input for part $number")

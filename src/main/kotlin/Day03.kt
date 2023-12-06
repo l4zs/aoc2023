@@ -1,6 +1,3 @@
-package day03
-
-import Day
 import util.Position
 
 fun main() {
