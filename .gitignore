@@ -1,6 +1,8 @@
+src/main/resources/**/*.txt
+.idea
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
