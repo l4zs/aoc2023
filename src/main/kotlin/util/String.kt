@@ -1,9 +1,11 @@
 package util
 
+internal val NUMBER_REGEX = """-?\d+""".toRegex()
+
 fun String.numbers(): List<Long> {
-    return this.filter { it.isDigit() || it.isWhitespace() }.trim().split("\\s+".toRegex()).map { it.toLong() }
+    return NUMBER_REGEX.findAll(this).map { it.value.toLong() }.toList()
 }
 
 fun String.number(): Long {
-    return this.filter { it.isDigit() }.toLong()
+    return NUMBER_REGEX.find(this)!!.value.toLong()
 }
